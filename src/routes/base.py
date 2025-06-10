@@ -1,7 +1,7 @@
 from fastapi import FastAPI, APIRouter
 import os
 
-base_router = APIRouter(
+base_router = APIRouter( # add prefix for all routes (api calls) in this file
     prefix="/api/v1",
     tags=["api_v1"],
 )
