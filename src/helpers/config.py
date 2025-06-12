@@ -7,6 +7,7 @@ class setting(BaseSettings):
     MY_TOKEN: str
     FILE_ALLOWED_TYPES: list[str]
     FILE_MAX_SIZE: int
+    FILE_ALLOWED_CHUNK_SIZE: int
 
 
     class config:
