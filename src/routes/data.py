@@ -3,11 +3,12 @@ from fastapi.responses import JSONResponse
 from controllers import ProjectController
 import aiofiles
 from models import ResponseSignal
-
+from .schema.data import ProcessRequest 
 import os
 from helpers.config import get_settings, setting
 from controllers import DataController
 import logging
+from controllers import ProcessController
 
 
 logger = logging.getLogger('uvicorn.error')
@@ -56,6 +57,24 @@ async def upload_data(project_id: str, file: UploadFile
             'file_id': file_id
             }
     )
+
+@data_router.post("/process/{project_id}")
+async def process_endpoint(project_id: str, process_request: ProcessRequest):
+
+    process = ProcessController(project_id=project_id)
+    
+    file_id = process_request.file_id
+    chunks = process.process_file_content(file_id=file_id)
+    
+    if chunks is None or len(chunks) == 0:
+        return JSONResponse(
+            status_code = status.HTTP_400_BAD_REQUEST,
+            content={
+                "signal": ResponseSignal.FILE_PROCESSING_FAILED.value,
+            }
+        )
+    
+    return chunks
 
 
 
