@@ -8,10 +8,11 @@ class setting(BaseSettings):
     FILE_ALLOWED_TYPES: list[str]
     FILE_MAX_SIZE: int
     FILE_ALLOWED_CHUNK_SIZE: int
+    MONGODB_URL: str
+    MONGODB_DATABASE: str
 
 
-    class config:
-        env_file = ".env"
+    model_config = SettingsConfigDict(env_file=".env")
 
 def get_settings():
     return setting()
