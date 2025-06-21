@@ -7,8 +7,25 @@ class ProjectModel(BaseDateModel):
         super().__init__(db_client)
         self.collection = self.db_client[DataBaseEnum.COLLECTION_PROJECT_NAME.value]
 
+    @classmethod
+    async def create_instance(cls, db_client):  # Giga chad
+        instance = cls(db_client)
+        await instance.init_collection()
+        return instance
+
+    async def init_collection(self):
+        all_collections = await self.db_client.list_collection_names()
+        if DataBaseEnum.COLLECTION_PROJECT_NAME.value not in all_collections:
+            self.collection = self.db_client[DataBaseEnum.COLLECTION_PROJECT_NAME.value]
+            for index in Project.get_indecies():
+                await self.collection.create_index(
+                    index["key"], 
+                    name=index["name"],
+                    unique=index.get("unique", False)
+                )
+
     async def create_project(self, project: Project):
-        result = await self.collection.insert_one(project.model_dump())
+        result = await self.collection.insert_one(project.model_dump(by_alias=True, exclude_unset=True))
         project._id = result.inserted_id
 
         return project
@@ -39,3 +56,4 @@ class ProjectModel(BaseDateModel):
             projects.append(Project(**document))
 
         return projects, total_page
+    
