@@ -30,8 +30,10 @@ class AssetModel(BaseDateModel):
         asset.id = result.inserted_id
         return asset
     
-    async def get_all_project_assets(self, project_id: str):
-        return await self.collection.find(
-            {"asset_project_id": ObjectId(project_id) if isinstance(project_id, str) else project_id }
-        ).to_list(length=None)
+    async def get_all_project_assets(self, project_id: str, asset_type: str = None):
+        records =  await self.collection.find({
+                "asset_project_id": ObjectId(project_id) if isinstance(project_id, str) else project_id,   
+             "asset_type": asset_type
+             }).to_list(length=None)
         
+        return [Asset(**record) for record in records]
