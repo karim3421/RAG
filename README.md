@@ -1,2 +1,2 @@
 # RAG application
-this is a mini rag project 
+Thsi is a RAG Application based on Abu bakr course about mini-rag
