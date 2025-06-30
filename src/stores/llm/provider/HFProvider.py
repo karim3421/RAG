@@ -96,10 +96,6 @@ class HFProvider(LLMInterface):
             model=self.embedding_model_id,
             text=text
         )
-
-        if not embedding:
-            logger.error("Failed to get embedding from Hugging Face API.")
-            return None
         
         return embedding
 

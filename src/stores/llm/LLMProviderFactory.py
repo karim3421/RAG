@@ -20,7 +20,7 @@ class LLMProviderFactory:
         if provider == LLMEnum.HUGGING_FACE.value:
             return HFProvider(
                 api_key=self.config.HF_TOKEN,
-                api_url="https://router.huggingface.co/cohere/compatibility/v1",
+                base_url="https://router.huggingface.co/cohere/compatibility/v1",
                 default_input_max_characters=self.config.INPUT_DEFAULT_MAX_CHARACTERS,
                 default_generation_max_output_tokens=self.config.GENERATION_DEFAULT_MAX_TOKENS,
                 default_generation_temperature=self.config.GENERATION_DEFAULT_TEMPERATURE

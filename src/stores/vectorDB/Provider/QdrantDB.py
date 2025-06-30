@@ -54,6 +54,7 @@ class QdrantDB(VectorDBInterface):
                     distance = self.distance_method
                 )
             )
+            print(f"name of the collection is {collection_name}")
             return True
         return False
     
@@ -67,6 +68,7 @@ class QdrantDB(VectorDBInterface):
                 collection_name=collection_name,
                 records= [
                     models.Record(
+                        id= [record_id],
                         vector=vector,
                         payload={
                             "text": text, "metadata": metadata
@@ -80,13 +82,14 @@ class QdrantDB(VectorDBInterface):
         
         return True
     
-    def insert_many(self, collection_name, texts, vectors, metadata = None, record_ids = None, batch_size = 50):
+    def insert_many(self, collection_name, texts, vectors,
+                     metadata = None, record_ids = None, batch_size = 50):
 
         if metadata is None: 
-            metadata = [None] * len(texts)\
+            metadata = [None] * len(texts)
             
         if record_ids is None:
-            record_ids = [None] * len(texts)
+            record_ids = list(range(0, len(texts)))
 
         for i in range(0, len(texts), batch_size):
 
@@ -95,9 +98,11 @@ class QdrantDB(VectorDBInterface):
             batch_text = texts[i: batch_end]
             batch_vector = vectors[i: batch_end]
             batch_metadata = metadata[i: batch_end]
+            batch_record_ids = record_ids[i: batch_end]
 
             batch_records = [
                 models.Record(
+                    id = batch_record_ids[x],
                     vector= batch_vector[x],
                     payload= {
                         "text": batch_text[x], "metadata": batch_metadata[x]
