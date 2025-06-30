@@ -17,11 +17,11 @@ class NLPController(BaseController):
         return f"collection_{project_id}".strip()
     
     def reset_vector_db_collection(self, project: Project):
-        collection_name = self.create_collection_name(project_id=project)
+        collection_name = self.create_collection_name(project_id=project.project_id)
         return self.vectordb_client.delete_collection(collection_name=collection_name)
     
     def get_vector_db_collection_info(self, project: Project):
-        collection_name = self.create_collection_name(project_id=project)
+        collection_name = self.create_collection_name(project_id=project.project_id)
         collection_info = self.vectordb_client.get_collection_info(collection_name=collection_name)
         return json.loads(
             json.dumps(collection_info, default= lambda x: x.__dict__)

@@ -45,7 +45,7 @@ class ProcessController(BaseController):
         if not content: 
             return None
 
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=100, chunk_overlap=20, length_function=len)
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=400, chunk_overlap=50, length_function=len)
 
         file_content_text = [dc.page_content for dc in content]
         file_content_metadata = [dc.metadata for dc in content]
