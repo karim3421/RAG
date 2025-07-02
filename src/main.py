@@ -5,6 +5,7 @@ from helpers.config import get_settings
 from contextlib import asynccontextmanager
 from stores.llm.LLMProviderFactory import LLMProviderFactory
 from stores.vectorDB.VectorDBProviderfactory import VectorDBProviderfactory
+from stores.llm.templates.template_parser import TemplateParser
 
 app = FastAPI()
 
@@ -26,6 +27,11 @@ async def lifespan(app: FastAPI):
     
     app.database_client = vectordb_provider_factory.create(provider= setting.VECTORDB)
     app.database_client.connect()
+
+    app.template_parser = TemplateParser(
+        language=setting.PRIMARY_LANG,
+        default_language=setting.DEFAULT_LANG,
+    )
     
     yield
     app.mongo_conn.close()

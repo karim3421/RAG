@@ -1,6 +1,6 @@
 from ..LLMinterface import LLMInterface
 import os
-from ..LLMEnums import OpenAIEnum
+from ..LLMEnums import OpenAIEnum, HFEnum
 from openai import OpenAI
 from dotenv import load_dotenv
 import logging
@@ -39,6 +39,7 @@ class HFProvider(LLMInterface):
             provider="hf-inference",
             api_key=os.getenv("HF_TOKEN"),
         )
+        self.enums = HFEnum
 
 
     def set_generation_model(self, model_id: str):
@@ -79,7 +80,7 @@ class HFProvider(LLMInterface):
             logger.error("Failed to get response from OpenAI API.")
             return None
         
-        return response.choices[0].message["content"]
+        return response.choices[0].message.content
     
 
     def embed_text(self, text, document_type = None):

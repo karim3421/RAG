@@ -21,6 +21,9 @@ class setting(BaseSettings):
     VECTOR_DB_PATH: str = None
     VECTOR_DB_DISTANCE_METHOD: str = None
 
+    DEFAULT_LANG: str
+    PRIMARY_LANG: str
+
 
     model_config = SettingsConfigDict(env_file=".env")
 
