@@ -8,8 +8,13 @@ class setting(BaseSettings):
     FILE_ALLOWED_TYPES: list[str]
     FILE_MAX_SIZE: int
     FILE_ALLOWED_CHUNK_SIZE: int
-    MONGODB_URL: str
-    MONGODB_DATABASE: str
+
+    POSTGRES_USERNAME: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_HOST: str
+    POSTGRES_PORT: int
+    POSTGRES_MAIN_DATABASE: str
+
     HF_TOKEN: str
     EMBEDDING_MODEL_SIZE: int = None
 
