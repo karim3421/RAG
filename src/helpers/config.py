@@ -15,8 +15,20 @@ class setting(BaseSettings):
     POSTGRES_PORT: int
     POSTGRES_MAIN_DATABASE: str
 
+    MONGODB_URL: str
+    MONGODB_DATABASE: str
+
     HF_TOKEN: str
-    EMBEDDING_MODEL_SIZE: int = None
+
+    GENERATION_BACKEND: str
+    EMBEDDING_BACKEND: str
+
+    GENERATION_MODEL_ID: str
+    EMBEDDING_MODEL_ID: str
+    EMBEDDING_MODEL_SIZE: int
+
+    OPENAI_API_KEY: str
+    OPENAI_API_URL: str
 
     INPUT_DEFAULT_MAX_CHARACTERS: int = None
     GENERATION_DEFAULT_MAX_TOKENS: int = None

@@ -2,6 +2,7 @@ from .BaseController import BaseController
 from models.db_schema import Project, DataChunk
 from typing import List
 import json
+from stores.llm.LLMEnums import OpenAIEnum
 
 class NLPController(BaseController):
 
@@ -106,8 +107,8 @@ class NLPController(BaseController):
 
         chat_history = [
             self.generation_client.construct_prompt(
-                query = system_prompt, 
-                role = self.generation_client.enums.SYSTEM.value
+                prompt = system_prompt, 
+                role = OpenAIEnum.SYSTEM.value
             )
         ]
 

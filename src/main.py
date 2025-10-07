@@ -18,11 +18,11 @@ async def lifespan(app: FastAPI):
     llm_provider_factory = LLMProviderFactory(setting)
     vectordb_provider_factory = VectorDBProviderfactory(setting)
 
-    app.client = llm_provider_factory.create(provider="HUGGINGFACE")
-    # app.embedding_client = llm_provider_factory.create(provider="HUGGINGFACE")
+    app.client = llm_provider_factory.create(provider= setting.GENERATION_BACKEND)
+    app.embedding_client = llm_provider_factory.create(provider= setting.EMBEDDING_BACKEND)
 
-    app.client.set_generation_model(model_id= "command-r-plus-04-2024")
-    app.client.set_embedding_model(model_id="intfloat/multilingual-e5-large-instruct",
+    app.client.set_generation_model(model_id= setting.GENERATION_MODEL_ID,)
+    app.embedding_client.set_embedding_model(model_id= setting.EMBEDDING_MODEL_ID,
                                     embedding_size= 1024)
     
     app.database_client = vectordb_provider_factory.create(provider= setting.VECTORDB)
