@@ -6,7 +6,7 @@ from typing import List
 from models.db_schema import RetrievedDocument
 
 
-class QdrantDB(VectorDBInterface):
+class DB(VectorDBInterface):
 
     def __init__(self, db_path: str,
                  distance_method: str):
