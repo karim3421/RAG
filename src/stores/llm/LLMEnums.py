@@ -9,3 +9,8 @@ class OpenAIEnum(Enum):
     SYSTEM = "system"
     USER = "user"
     ASSISTANT = "assistant"
+    
+class HFEnum(Enum):
+    SYSTEM = "system"
+    USER = "user"
+    ASSISTANT = "assistant"

@@ -8,14 +8,38 @@ class setting(BaseSettings):
     FILE_ALLOWED_TYPES: list[str]
     FILE_MAX_SIZE: int
     FILE_ALLOWED_CHUNK_SIZE: int
+
+    POSTGRES_USERNAME: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_HOST: str
+    POSTGRES_PORT: int
+    POSTGRES_MAIN_DATABASE: str
+
     MONGODB_URL: str
     MONGODB_DATABASE: str
+
     HF_TOKEN: str
-    EMBEDDING_MODEL_SIZE: int = None
+
+    GENERATION_BACKEND: str
+    EMBEDDING_BACKEND: str
+
+    GENERATION_MODEL_ID: str
+    EMBEDDING_MODEL_ID: str
+    EMBEDDING_MODEL_SIZE: int
+
+    OPENAI_API_KEY: str
+    OPENAI_API_URL: str
 
     INPUT_DEFAULT_MAX_CHARACTERS: int = None
     GENERATION_DEFAULT_MAX_TOKENS: int = None
     GENERATION_DEFAULT_TEMPERATURE: float = None
+
+    VECTORDB: str = None
+    VECTOR_DB_PATH: str = None
+    VECTOR_DB_DISTANCE_METHOD: str = None
+
+    DEFAULT_LANG: str
+    PRIMARY_LANG: str
 
 
     model_config = SettingsConfigDict(env_file=".env")
